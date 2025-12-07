@@ -1,0 +1,105 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("SALES")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  simulations Simulation[]
+}
+
+model InsuranceRate {
+  id        Int     @id @default(autoincrement())
+  category  String  
+  tenor     Int     
+  label     String  
+  minPrice  Float   
+  maxPrice  Float   
+  rate      Float   
+
+  @@index([category, tenor, minPrice, maxPrice])
+}
+
+model InterestRate {
+  id           Int     @id @default(autoincrement())
+  category     String  
+  paymentType  String  
+  star         Int?    
+  tenor        Int     
+  rate         Float   
+
+  @@index([category, paymentType, star, tenor])
+}
+
+model StarConfig {
+  id          Int     @id @default(autoincrement())
+  starLevel   Int     @unique 
+  minDp       Float   
+  description String?
+}
+
+model Simulation {
+  id              Int      @id @default(autoincrement())
+  
+  // --- Data Nasabah ---
+  borrowerName    String
+  coBorrowerName  String?
+  salesName       String?
+  status          String   @default("TODO")
+  
+  // PERUBAHAN: Gunakan LongText untuk menyimpan Base64 File
+  // Format simpan: JSON String -> [{ name: "ktp.jpg", base64: "data:image..." }]
+  attachments     String?  @db.LongText 
+
+  // --- Data Unit ---
+  unitName        String
+  nopol           String?
+  category        String   
+  subCategory     String?  
+  isLoadingUnit   Boolean  @default(false)
+  
+  // --- Parameter Kredit ---
+  vehiclePrice    Float    
+  dpPercent       Float    
+  tenor           Int      
+  paymentType     String   
+  adminFee        Float 
+  insuranceLabel  String?
+
+  // --- Hasil Hitungan ---
+  dpAmount        Float    
+  monthlyPayment  Float    
+  totalFirstPay   Float    
+  
+  interestRate    Float?   
+  insuranceRate   Float?   
+  insuranceAmount Float?   
+  
+  principalPure   Float?   
+  policyFee       Float?   
+  totalAR         Float?   
+  totalInterest   Float?   
+  totalLoan       Float?   
+  policyFeeTDP    Float?   
+  firstInstallment Float?  
+  nilaiAP         Float?   
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  userId          Int?
+  user            User?    @relation(fields: [userId], references: [id])
+}
