@@ -57,7 +57,7 @@ export default function LoginPage() {
             />
           </div>
           
-          <p className="text-white text-xs lg:text-lg font-medium mb-8 whitespace-nowrap">
+          <p className="text-white text-xs lg:text-lg font-medium mb-8 whitespace-normal lg:whitespace-nowrap max-w-[80%] lg:max-w-none leading-relaxed">
             Growth Accelerator System for Performance Optimization & Leads
           </p>
 
