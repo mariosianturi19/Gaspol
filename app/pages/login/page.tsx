@@ -57,17 +57,15 @@ export default function LoginPage() {
             />
           </div>
           
-          <p className="text-white text-xs lg:text-lg font-medium mb-2 whitespace-nowrap">
+          <p className="text-white text-xs lg:text-lg font-medium mb-8 whitespace-nowrap">
             Growth Accelerator System for Performance Optimization & Leads
           </p>
-        </div>
-        
-        <div className="absolute bottom-6 w-full lg:w-auto lg:bottom-10 lg:left-10 flex justify-center lg:justify-start z-20">
-          <div className="flex items-center gap-3 opacity-90 hover:opacity-100 transition-opacity">
+
+          <div className="flex flex-col items-center gap-3 opacity-90 hover:opacity-100 transition-opacity">
             <p className="text-blue-200 text-[10px] lg:text-xs font-semibold tracking-wider uppercase whitespace-nowrap">
               Exclusively Built For
             </p>
-            <div className="bg-white rounded-lg px-3 py-1.5 shadow-lg shadow-blue-900/20">
+            <div className="bg-white rounded-lg px-4 py-2 shadow-lg shadow-blue-900/20">
                <img 
                  src="/setir-kanan.png" 
                  alt="Setir Kanan" 
