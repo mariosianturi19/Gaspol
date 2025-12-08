@@ -20,19 +20,19 @@ export default function Navbar() {
   return (
     <>
       {/* Desktop Navbar (Hidden on Mobile) */}
-      <nav className="hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#020c20] border-b border-blue-900/20">
+      <nav className="hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#00428D] border-b border-blue-800/50">
         <div className="max-w-7xl mx-auto px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo Section */}
             <div className="flex items-center gap-4">
-              <div className="relative">
+              <div className="relative flex items-center justify-center bg-white rounded-xl p-1.5 shadow-lg">
                 <img 
                   src="/GASPOL.png?v=3" 
                   alt="Gaspol Logo" 
-                  className="relative w-16 h-16 object-contain" 
+                  className="relative w-14 h-14 object-contain z-10" 
                 />
               </div>
-              <span className="font-bold text-2xl tracking-tight text-white">
+              <span className="font-bold text-2xl tracking-tight text-white relative z-10">
                 GASPOL System
               </span>
             </div>
@@ -86,14 +86,16 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Top Bar (Logo Only) */}
-      <nav className="md:hidden fixed top-0 left-0 right-0 z-50 bg-[#020c20] border-b border-blue-900/20 px-4 h-16 flex items-center justify-between">
+      <nav className="md:hidden fixed top-0 left-0 right-0 z-50 bg-[#00428D] border-b border-blue-800/50 px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img 
-            src="/GASPOL.png?v=3" 
-            alt="Gaspol Logo" 
-            className="w-12 h-12 object-contain" 
-          />
-          <span className="font-bold text-lg tracking-tight text-white">GASPOL!</span>
+          <div className="relative flex items-center justify-center bg-white rounded-lg p-1 shadow-md">
+             <img 
+              src="/GASPOL.png?v=3" 
+              alt="Gaspol Logo" 
+              className="w-10 h-10 object-contain relative z-10" 
+            />
+          </div>
+          <span className="font-bold text-lg tracking-tight text-white relative z-10">GASPOL!</span>
         </div>
         {user && (
            <div className="flex items-center gap-2">

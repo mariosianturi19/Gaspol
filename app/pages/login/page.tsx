@@ -39,21 +39,21 @@ export default function LoginPage() {
     <div className="w-full flex flex-col lg:flex-row bg-white min-h-screen">
       {/* Brand Section - Top on Mobile, Left on Desktop */}
       {/* UPDATE: padding vertical diubah jadi py-6 (biar lebih ramping dikit di mobile) */}
-      <div className="lg:w-[45%] bg-[#0B1120] relative overflow-hidden flex flex-col justify-center items-center py-6 px-6 lg:p-16 text-white shrink-0">
+      <div className="lg:w-[45%] bg-[#00428D] relative overflow-hidden flex flex-col justify-center items-center py-6 px-6 lg:p-16 text-white shrink-0">
         {/* Background Pattern - Minimalist Grid */}
         <div className="absolute inset-0 opacity-[0.03]" 
              style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
         </div>
         
         {/* Gradient Glow */}
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-600/20 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
 
         <div className="relative z-10 flex flex-col items-center text-center max-w-md">
-          <div className="w-48 h-48 lg:w-96 lg:h-96 relative mb-4 lg:mb-6">
+          <div className="w-48 h-48 lg:w-96 lg:h-96 relative mb-4 lg:mb-6 flex items-center justify-center bg-white rounded-[2rem] p-6 shadow-2xl">
              <img 
               src="/GASPOL.png?v=3" 
               alt="Gaspol Logo" 
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain relative z-10"
             />
           </div>
           
