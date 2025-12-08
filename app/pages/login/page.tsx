@@ -48,7 +48,7 @@ export default function LoginPage() {
         {/* Gradient Glow */}
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col items-center text-center max-w-md">
+        <div className="relative z-10 flex flex-col items-center text-center w-full">
           <div className="w-48 h-48 lg:w-96 lg:h-96 relative mb-4 lg:mb-6 flex items-center justify-center bg-white rounded-[2rem] p-6 shadow-2xl">
              <img 
               src="/GASPOL.png?v=3" 
@@ -57,16 +57,13 @@ export default function LoginPage() {
             />
           </div>
           
-          <p className="text-slate-400 text-sm lg:text-lg leading-relaxed max-w-xs lg:max-w-md font-medium mb-2">
-            (Growth Accelerator System for Performance Optimization & Leads)
-          </p>
-          <p className="text-slate-300 text-sm lg:text-xl leading-relaxed max-w-xs lg:max-w-md italic">
-            “Let’s GASPOL the Sales Performance!”
+          <p className="text-white text-xs lg:text-lg font-medium mb-2 whitespace-nowrap">
+            Growth Accelerator System for Performance Optimization & Leads
           </p>
         </div>
         
         <div className="absolute bottom-8 text-slate-600 text-xs hidden lg:block">
-          © 2025 Gaspol System v2.0
+          © 2025 Gaspol System
         </div>
       </div>
 
