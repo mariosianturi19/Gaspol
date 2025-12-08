@@ -39,7 +39,7 @@ export default function LoginPage() {
     <div className="w-full flex flex-col lg:flex-row bg-white min-h-screen">
       {/* Brand Section - Top on Mobile, Left on Desktop */}
       {/* UPDATE: padding vertical diubah jadi py-6 (biar lebih ramping dikit di mobile) */}
-      <div className="lg:w-[45%] bg-[#00428D] relative overflow-hidden flex flex-col justify-center items-center py-6 px-6 lg:p-16 text-white shrink-0">
+      <div className="lg:w-[45%] bg-[#00428D] relative overflow-hidden flex flex-col justify-center items-center pt-6 pb-20 px-6 lg:p-16 text-white shrink-0">
         {/* Background Pattern - Minimalist Grid */}
         <div className="absolute inset-0 opacity-[0.03]" 
              style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
@@ -62,8 +62,19 @@ export default function LoginPage() {
           </p>
         </div>
         
-        <div className="absolute bottom-8 text-slate-600 text-xs hidden lg:block">
-          © 2025 Gaspol System
+        <div className="absolute bottom-6 w-full lg:w-auto lg:bottom-10 lg:left-10 flex justify-center lg:justify-start z-20">
+          <div className="flex items-center gap-3 opacity-90 hover:opacity-100 transition-opacity">
+            <p className="text-blue-200 text-[10px] lg:text-xs font-semibold tracking-wider uppercase whitespace-nowrap">
+              Exclusively Built For
+            </p>
+            <div className="bg-white rounded-lg px-3 py-1.5 shadow-lg shadow-blue-900/20">
+               <img 
+                 src="/setir-kanan.png" 
+                 alt="Setir Kanan" 
+                 className="h-8 lg:h-12 w-auto object-contain" 
+               />
+            </div>
+          </div>
         </div>
       </div>
 

@@ -96,7 +96,7 @@ export default function SimulationResult({ result, form, handleSave, isSaving }:
 
                   <tr>
                     <td className="py-3 px-4 text-slate-500">Bunga Flat ({toPct(result.interestRatePct)}/thn)</td>
-                    <td className="py-3 px-4 text-right text-slate-600">x {form.tenor} Bulan</td>
+                    <td className="py-3 px-4 text-right text-slate-600">x {form.paymentType === 'ADDM' ? form.tenor - 1 : form.tenor} Bulan</td>
                   </tr>
                   <tr>
                     <td className="py-3 px-4 text-slate-500">Total Bunga</td>

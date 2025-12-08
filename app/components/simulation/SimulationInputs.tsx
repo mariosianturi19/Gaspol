@@ -127,10 +127,15 @@ export default function SimulationInputs({
             <div className="relative">
               <span className="absolute left-3 top-3 text-slate-400 font-bold text-sm">Rp</span>
               <input 
-                type="number" 
+                type="text" 
                 name="price" 
-                value={form.price || ''} 
-                onChange={handleChange} 
+                value={form.price ? form.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : ''} 
+                onChange={(e) => {
+                    const val = e.target.value.replace(/\./g, '');
+                    if (/^\d*$/.test(val)) {
+                        setForm(prev => ({ ...prev, price: val === '' ? 0 : parseInt(val) }));
+                    }
+                }}
                 className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-lg text-slate-800 focus:ring-2 focus:ring-blue-500 focus:bg-white focus:border-transparent outline-none transition-all placeholder:text-slate-300" 
                 placeholder="0" 
               />
@@ -144,10 +149,15 @@ export default function SimulationInputs({
                       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">DP (%)</label>
                       <div className="relative">
                         <input 
-                          type="number" 
+                          type="text" 
                           name="dpPercent" 
                           value={form.dpPercent} 
-                          onChange={handleChange} 
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            if (/^\d*$/.test(val)) {
+                                setForm(prev => ({ ...prev, dpPercent: val === '' ? 0 : parseInt(val) }));
+                            }
+                          }}
                           className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-center font-bold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all" 
                         />
                         <span className="absolute right-3 top-2.5 text-slate-400 font-bold">%</span>
@@ -183,7 +193,19 @@ export default function SimulationInputs({
                   <div className="grid grid-cols-2 gap-3">
                         <div>
                           <label className="block text-[10px] font-bold text-slate-500 mb-1">NOMINAL TARGET</label>
-                          <input type="number" name="targetValue" value={form.targetValue || ''} onChange={handleChange} className="w-full px-3 py-2 border border-purple-200 rounded-lg text-sm font-bold text-purple-800 focus:ring-2 focus:ring-purple-500 outline-none" placeholder="0" />
+                          <input 
+                            type="text" 
+                            name="targetValue" 
+                            value={form.targetValue ? form.targetValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : ''} 
+                            onChange={(e) => {
+                                const val = e.target.value.replace(/\./g, '');
+                                if (/^\d*$/.test(val)) {
+                                    setForm(prev => ({ ...prev, targetValue: val === '' ? 0 : parseInt(val) }));
+                                }
+                            }}
+                            className="w-full px-3 py-2 border border-purple-200 rounded-lg text-sm font-bold text-purple-800 focus:ring-2 focus:ring-purple-500 outline-none" 
+                            placeholder="0" 
+                          />
                         </div>
                         <div>
                           <label className="block text-[10px] font-bold text-slate-500 mb-1">TENOR</label>
@@ -263,7 +285,13 @@ export default function SimulationInputs({
                   </div>
                   <div>
                       <label className="block text-[10px] font-bold text-slate-500 mb-1">BIAYA ADMIN</label>
-                      <input type="number" name="adminFee" value={form.adminFee} readOnly className="w-full px-3 py-2 border border-slate-200 bg-slate-100 text-slate-500 rounded-lg text-right text-xs font-semibold outline-none cursor-not-allowed" />
+                      <input 
+                        type="text" 
+                        name="adminFee" 
+                        value={form.adminFee ? form.adminFee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : ''} 
+                        readOnly 
+                        className="w-full px-3 py-2 border border-slate-200 bg-slate-100 text-slate-500 rounded-lg text-right text-xs font-semibold outline-none cursor-not-allowed" 
+                      />
                   </div>
               </div>
           </div>
