@@ -49,7 +49,7 @@ export default function LoginPage() {
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-600/20 to-transparent pointer-events-none" />
 
         <div className="relative z-10 flex flex-col items-center text-center max-w-md">
-          <div className="w-20 h-20 lg:w-48 lg:h-48 relative mb-4 lg:mb-6">
+          <div className="w-48 h-48 lg:w-96 lg:h-96 relative mb-4 lg:mb-6">
              <img 
               src="/GASPOL.png?v=3" 
               alt="Gaspol Logo" 
@@ -57,9 +57,6 @@ export default function LoginPage() {
             />
           </div>
           
-          <h1 className="text-2xl lg:text-5xl font-bold mb-2 lg:mb-4 tracking-tight">
-            GASPOL
-          </h1>
           <p className="text-slate-400 text-sm lg:text-lg leading-relaxed max-w-xs lg:max-w-md font-medium mb-2">
             (Growth Accelerator System for Performance Optimization & Leads)
           </p>

@@ -70,8 +70,8 @@ export default function SimulationResult({ result, form, handleSave, isSaving }:
                     <td className="py-3 px-4 text-right font-medium text-slate-700">{toIDR(result.dpAmount)}</td>
                   </tr>
                   <tr>
-                    <td className="py-3 px-4 text-slate-700 font-bold">Pokok Hutang Murni</td>
-                    <td className="py-3 px-4 text-right font-bold text-slate-800">{toIDR(result.principalPure)}</td>
+                    <td className="py-3 px-4 text-slate-700">Pokok Hutang Murni</td>
+                    <td className="py-3 px-4 text-right text-slate-800">{toIDR(result.principalPure)}</td>
                   </tr>
 
                   <tr>
@@ -90,8 +90,8 @@ export default function SimulationResult({ result, form, handleSave, isSaving }:
 
                   {/* Total AR Row - Blue Highlight */}
                   <tr className="bg-blue-50/50 border-t-2 border-blue-100">
-                    <td className="py-3 px-4 text-blue-800 font-bold">Total AR (Awal)</td>
-                    <td className="py-3 px-4 text-right text-blue-800 font-bold text-lg">{toIDR(result.totalAR)}</td>
+                    <td className="py-3 px-4 text-blue-800">Total AR (Awal)</td>
+                    <td className="py-3 px-4 text-right text-blue-800 text-lg">{toIDR(result.totalAR)}</td>
                   </tr>
 
                   <tr>
@@ -103,8 +103,8 @@ export default function SimulationResult({ result, form, handleSave, isSaving }:
                     <td className="py-3 px-4 text-right text-slate-600">{toIDR(result.totalInterest)}</td>
                   </tr>
                   <tr>
-                    <td className="py-3 px-4 text-slate-700 font-bold">Jumlah Hutang</td>
-                    <td className="py-3 px-4 text-right font-bold text-slate-800">{toIDR(result.totalLoan)}</td>
+                    <td className="py-3 px-4 text-slate-700">Jumlah Hutang</td>
+                    <td className="py-3 px-4 text-right text-slate-800">{toIDR(result.totalLoan)}</td>
                   </tr>
                   <tr>
                     <td className="py-3 px-4 text-slate-500 italic">Nilai AP (Price - TDP)</td>
@@ -115,9 +115,6 @@ export default function SimulationResult({ result, form, handleSave, isSaving }:
                   <tr className="bg-orange-50 border-y-2 border-orange-100">
                     <td className="py-3 px-3 lg:py-4 lg:px-4 text-slate-800 font-bold text-sm lg:text-lg">Angsuran per Bulan</td>
                     <td className="py-3 px-3 lg:py-4 lg:px-4 text-right text-orange-600 font-bold text-lg lg:text-2xl">{toIDR(result.monthlyInstallment)}</td>
-                  </tr>
-                  <tr>
-                    <td colSpan={2} className="py-1 px-4 text-right text-[10px] text-red-500 font-medium">*Promo: Tenor dibagi 10</td>
                   </tr>
 
                 </tbody>
