@@ -90,8 +90,8 @@ export default function SimulationResult({ result, form, handleSave, isSaving }:
 
                   {/* Total AR Row - Blue Highlight */}
                   <tr className="bg-blue-50/50 border-t-2 border-blue-100">
-                    <td className="py-3 px-4 text-blue-800">Total AR (Awal)</td>
-                    <td className="py-3 px-4 text-right text-blue-800">{toIDR(result.totalAR)}</td>
+                    <td className="py-3 px-4 text-slate-700">Total AR (Awal)</td>
+                    <td className="py-3 px-4 text-right text-slate-800">{toIDR(result.totalAR)}</td>
                   </tr>
 
                   <tr>

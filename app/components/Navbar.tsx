@@ -29,7 +29,7 @@ export default function Navbar() {
                 <img 
                   src="/GASPOL.png?v=3" 
                   alt="Gaspol Logo" 
-                  className="relative w-12 h-12 object-contain" 
+                  className="relative w-16 h-16 object-contain" 
                 />
               </div>
               <span className="font-bold text-2xl tracking-tight text-white">
@@ -91,7 +91,7 @@ export default function Navbar() {
           <img 
             src="/GASPOL.png?v=3" 
             alt="Gaspol Logo" 
-            className="w-8 h-8 object-contain" 
+            className="w-12 h-12 object-contain" 
           />
           <span className="font-bold text-lg tracking-tight text-white">GASPOL!</span>
         </div>
