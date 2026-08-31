@@ -1,10 +1,9 @@
 // app/api/auth/login/route.ts
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import { compare } from 'bcryptjs';
 import { createSession } from '@/lib/auth';
 
-const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   try {
@@ -31,7 +30,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true, role: user.role });
   } catch (error) {
     return NextResponse.json({ error: 'Terjadi kesalahan server' }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
   }
 }

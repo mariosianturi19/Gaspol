@@ -17,11 +17,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "GASPOL System",
-  description: "Aplikasi Simulasi Kredit",
-  manifest: "/manifest.json", 
+  description: "Simulasi kredit kendaraan untuk tim sales",
+  manifest: "/manifest.json",
   icons: {
     icon: '/GASPOL.png',
-    apple: '/GASPOL.png', 
+    apple: '/GASPOL.png',
+  },
+  openGraph: {
+    title: "GASPOL System",
+    description: "Simulasi kredit kendaraan untuk tim sales",
+    type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };
 

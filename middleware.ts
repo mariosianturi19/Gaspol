@@ -2,8 +2,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
-
-const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET || 'rahasia-super-aman-jangan-disebar');
+import { SESSION_SECRET } from '@/lib/session-secret';
 
 export async function middleware(request: NextRequest) {
   const session = request.cookies.get('session')?.value;
@@ -13,7 +12,7 @@ export async function middleware(request: NextRequest) {
   if (pathname === '/pages/login') {
     if (session) {
       try {
-        await jwtVerify(session, SECRET_KEY);
+        await jwtVerify(session, SESSION_SECRET);
         return NextResponse.redirect(new URL('/', request.url));
       } catch (e) {
         // Token invalid, biarkan akses login
@@ -28,7 +27,7 @@ export async function middleware(request: NextRequest) {
   }
 
   try {
-    await jwtVerify(session, SECRET_KEY);
+    await jwtVerify(session, SESSION_SECRET);
     return NextResponse.next();
   } catch (error) {
     return NextResponse.redirect(new URL('/pages/login', request.url));

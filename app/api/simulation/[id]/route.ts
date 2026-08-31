@@ -1,9 +1,8 @@
 // app/api/simulation/[id]/route.ts
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth'; // Helper Auth
 
-const prisma = new PrismaClient();
 
 // UPDATE STATUS (PATCH)
 export async function PATCH(
@@ -33,8 +32,6 @@ export async function PATCH(
 
   } catch (error) {
     return NextResponse.json({ error: 'Gagal update status' }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
   }
 }
 
@@ -63,7 +60,5 @@ export async function DELETE(
 
   } catch (error) {
     return NextResponse.json({ error: 'Gagal hapus data' }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
   }
 }
