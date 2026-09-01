@@ -1,13 +1,14 @@
 // lib/auth.ts
 import { jwtVerify, SignJWT } from 'jose';
 import { cookies } from 'next/headers';
-import { SESSION_SECRET } from './session-secret';
+
+const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET || 'rahasia-super-aman-jangan-disebar');
 
 export async function createSession(payload: any) {
   const token = await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setExpirationTime('1d') // Login berlaku 1 hari
-    .sign(SESSION_SECRET);
+    .sign(SECRET_KEY);
 
   const cookieStore = await cookies();
   cookieStore.set('session', token, {
@@ -24,7 +25,7 @@ export async function getSession() {
   if (!session) return null;
 
   try {
-    const { payload } = await jwtVerify(session, SESSION_SECRET);
+    const { payload } = await jwtVerify(session, SECRET_KEY);
     return payload;
   } catch (error) {
     return null;

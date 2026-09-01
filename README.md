@@ -88,10 +88,13 @@ about roles.
 **Ownership is taken from the session, never the request body.** A caller cannot
 file a simulation under another user account by editing the payload.
 
-**No secret has a default.** `JWT_SECRET` is read once at startup and the app
-throws if it is missing, rather than falling back to a literal. A fallback would
-mean a deployment that forgot the variable would sign sessions with a value
-published in this repository, and anyone could then forge a cookie for any role.
+**Known weakness: the session key has a hard-coded fallback.** When
+`JWT_SECRET` is unset, `lib/auth.ts` and `middleware.ts` fall back to a literal
+string that is visible in this repository, so a deployment that omits the
+variable signs its cookies with a publicly known key. Setting `JWT_SECRET` in the
+hosting environment closes that gap. Removing the fallback entirely would be the
+stronger fix, at the cost of the app refusing to start when the variable is
+missing.
 
 ## Data model
 
@@ -124,9 +127,11 @@ were quoted even after the rate tables change.
 
 **Prerequisites:** Node 20 or newer and a MySQL database.
 
-1. **Configure.** Copy `.env.example` to `.env` and fill it in. `JWT_SECRET` is
-   required and the app refuses to start without it; generate one with
-   `openssl rand -base64 32`.
+1. **Configure.** Copy `.env.example` to `.env` and set `DATABASE_URL`.
+
+   Also set `JWT_SECRET` to a random value. The app starts without it, but
+   falls back to a key that is published in this repository. Generate one with
+   `node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"`.
 
 2. **Install and prepare the schema.**
 
@@ -135,8 +140,9 @@ were quoted even after the rate tables change.
    npx prisma migrate deploy
    ```
 
-3. **Seed the accounts.** The seed reads its credentials from the `SEED_*`
-   variables, so set those first.
+3. **Seed the accounts.** Creates one `PROSESOR` and one `SALES` account.
+   Edit the credentials at the top of `prisma/seed.ts` before running it against
+   anything real; the committed values are placeholders.
 
    ```bash
    npx prisma db seed

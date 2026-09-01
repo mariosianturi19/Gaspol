@@ -4,51 +4,34 @@ import { hash } from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
-/**
- * Seed credentials come from the environment, never from this file.
- *
- * Earlier revisions hard-coded the passwords here. This file is committed to a
- * public repository, so anything written in it is a published credential for
- * whatever database the seed has been run against. Reading them from the
- * environment keeps the account structure in version control while the secrets
- * stay out of it.
- */
-function requireEnv(name: string): string {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(
-      `${name} is not set. Seeding would otherwise create an account with a ` +
-        `predictable password. Set it in .env before running the seed; see .env.example.`,
-    );
-  }
-  return value;
-}
-
 async function main() {
+  // 1. Buat Akun PROSESOR (Admin)
+  const passwordProsesor = await hash('admin123', 12);
   const prosesor = await prisma.user.upsert({
-    where: { email: requireEnv('SEED_PROSESOR_EMAIL') },
+    where: { email: 'admin@setirkanan.co.id' },
     update: {},
     create: {
-      email: requireEnv('SEED_PROSESOR_EMAIL'),
-      name: 'Prosesor',
-      password: await hash(requireEnv('SEED_PROSESOR_PASSWORD'), 12),
+      email: 'admin@setirkanan.co.id',
+      name: 'Super Prosesor',
+      password: passwordProsesor,
       role: 'PROSESOR',
     },
   });
 
+  // 2. Buat Akun SALES
+  const passwordSales = await hash('sales123', 12);
   const sales = await prisma.user.upsert({
-    where: { email: requireEnv('SEED_SALES_EMAIL') },
+    where: { email: 'sales@setirkanan.co.id' },
     update: {},
     create: {
-      email: requireEnv('SEED_SALES_EMAIL'),
-      name: 'Sales',
-      password: await hash(requireEnv('SEED_SALES_PASSWORD'), 12),
+      email: 'sales@setirkanan.co.id',
+      name: 'Sales Juara',
+      password: passwordSales,
       role: 'SALES',
     },
   });
 
-  // Log the accounts, not their passwords.
-  console.log('Seeded:', { prosesor: prosesor.email, sales: sales.email });
+  console.log({ prosesor, sales });
 }
 
 main()
