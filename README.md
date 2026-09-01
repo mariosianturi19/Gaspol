@@ -5,7 +5,7 @@ enters the unit and the credit parameters, and the app resolves the applicable
 interest and insurance rates from the rate tables, computes the full instalment
 breakdown, and saves the result with the supporting customer documents attached.
 
-**[Live demo](https://gaspol-seven.vercel.app)**
+**[Live demo](https://www.gaspol.web.id)**
 
 ## Screenshots
 
