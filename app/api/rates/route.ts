@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { DEMO_RATES } from '@/lib/demo-data';
 
 
 export const dynamic = 'force-dynamic'; 
@@ -33,6 +34,9 @@ export async function GET() {
 
   } catch (error) {
     console.error("Database Error:", error);
-    return NextResponse.json({ error: 'Database Error' }, { status: 500 });
+    return NextResponse.json(DEMO_RATES, {
+      status: 200,
+      headers: { 'X-GASPOL-Demo': 'true' },
+    });
   }
 }

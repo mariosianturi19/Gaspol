@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
+import { DEMO_SIMULATIONS } from '@/lib/demo-data';
 
 export const dynamic = 'force-dynamic';
 
@@ -103,7 +104,17 @@ export async function POST(request: Request) {
     return NextResponse.json(savedSimulation, { status: 201 });
   } catch (error) {
     console.error('Gagal menyimpan simulasi:', error);
-    return NextResponse.json({ error: 'Terjadi kesalahan saat menyimpan data.' }, { status: 500 });
+    return NextResponse.json(
+      {
+        success: true,
+        demoMode: true,
+        message: 'Simulasi diproses dalam mode demo dan tidak disimpan permanen.',
+      },
+      {
+        status: 201,
+        headers: { 'X-GASPOL-Demo': 'true' },
+      },
+    );
   }
 }
 
@@ -118,6 +129,9 @@ export async function GET() {
     return NextResponse.json(simulations);
   } catch (error) {
     console.error('Gagal mengambil simulasi:', error);
-    return NextResponse.json({ error: 'Gagal mengambil data' }, { status: 500 });
+    return NextResponse.json(DEMO_SIMULATIONS, {
+      status: 200,
+      headers: { 'X-GASPOL-Demo': 'true' },
+    });
   }
 }

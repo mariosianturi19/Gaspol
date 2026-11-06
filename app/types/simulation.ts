@@ -22,6 +22,7 @@ export interface DbInsurance {
 export interface AppData {
   interestRates: DbInterest[];
   insuranceRates: DbInsurance[];
+  demoMode?: boolean;
 }
 
 // Struktur data untuk file Base64

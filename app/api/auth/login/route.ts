@@ -3,13 +3,20 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { compare } from 'bcryptjs';
 import { createSession } from '@/lib/auth';
+import { findDemoUser } from '@/lib/demo-data';
 
 
 export async function POST(request: Request) {
-  try {
-    const { email, password } = await request.json();
+  const { email, password } = await request.json();
 
-    const user = await prisma.user.findUnique({ where: { email } });
+  if (typeof email !== 'string' || typeof password !== 'string') {
+    return NextResponse.json({ error: 'Email dan password wajib diisi' }, { status: 400 });
+  }
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: email.trim().toLowerCase() },
+    });
     if (!user) {
       return NextResponse.json({ error: 'Email tidak ditemukan' }, { status: 401 });
     }
@@ -28,7 +35,26 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true, role: user.role });
-  } catch (error) {
-    return NextResponse.json({ error: 'Terjadi kesalahan server' }, { status: 500 });
+  } catch {
+    console.warn('Database tidak tersedia. Login demo sementara diaktifkan.');
+
+    const demoUser = findDemoUser(email, password);
+    if (!demoUser) {
+      return NextResponse.json({ error: 'Email atau password salah' }, { status: 401 });
+    }
+
+    await createSession({
+      id: demoUser.id,
+      email: demoUser.email,
+      name: demoUser.name,
+      role: demoUser.role,
+      demoMode: true,
+    });
+
+    return NextResponse.json({
+      success: true,
+      role: demoUser.role,
+      demoMode: true,
+    });
   }
 }

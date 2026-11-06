@@ -96,6 +96,7 @@ export const useCreditSimulation = () => {
   const [result, setResult] = useState<CalculationResult | null>(null);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
+  const isDemoMode = Boolean(dbData?.demoMode);
 
   const roundVal = (num: number, multiple: number, direction: 'round' | 'ceil' = 'round') => {
     if (direction === 'ceil') return Math.ceil(num / multiple) * multiple;
@@ -457,6 +458,7 @@ export const useCreditSimulation = () => {
     isLoading, errorMsg, isSaving,
     saveSuccess, setSaveSuccess,
     validationError, setValidationError,
+    isDemoMode,
     availableTenors, availableInsuranceOptions,
     handleChange, handleSave, solveBudget,
     handleFileChange, removeAttachment
