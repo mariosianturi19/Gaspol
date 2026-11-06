@@ -42,7 +42,9 @@ const interestRates = vehicleCategories.flatMap((category) =>
   paymentTypes.flatMap((paymentType) =>
     Array.from({ length: 7 }, (_, index) => index + 1).flatMap((star) =>
       tenors.map((tenor) => {
-        const baseRate = category === 'PASSENGER' ? 0.0885 : 0.0965;
+        // Anchored to the last verified production example:
+        // PASSENGER, ADDB, Star 5, 36 months = 8.250% p.a.
+        const baseRate = category === 'PASSENGER' ? 0.0865 : 0.0945;
         const tenorAdjustment = (tenor / 12 - 1) * 0.002;
         const paymentAdjustment = paymentType === 'ADDM' ? 0.001 : 0;
         const starDiscount = (star - 1) * 0.002;
@@ -78,10 +80,11 @@ const insuranceRates = insuranceCategories.flatMap(({ category, adjustment }) =>
     id: insuranceId++,
     category,
     tenor,
-    label: 'Comprehensive (Data Demo)',
+    label: `${tenor} THN TLO`,
     minPrice: 0,
     maxPrice: 9_999_999_999_999,
-    rate: Number((0.013 + tenor * 0.004 + adjustment).toFixed(5)),
+    // PASSENGER tenor 3 is anchored to the verified 2.268% example.
+    rate: Number((0.01068 + tenor * 0.004 + adjustment).toFixed(5)),
   })),
 );
 
@@ -95,32 +98,32 @@ export const DEMO_SIMULATIONS: HistoryItem[] = [
   {
     id: 9001,
     createdAt: '2026-11-06T06:00:00.000Z',
-    borrowerName: 'Nasabah Demo',
-    salesName: 'Sales Juara',
+    borrowerName: 'Raka Mahendra',
+    salesName: 'Dimas Pratama',
     status: 'TODO',
     attachments: null,
-    unitName: 'Toyota Avanza (Demo)',
+    unitName: 'Toyota Avanza 1.5 G CVT',
     category: 'PASSENGER',
-    nopol: 'B 1234 DEMO',
-    vehiclePrice: 250_000_000,
+    nopol: 'B 1847 RKP',
+    vehiclePrice: 300_000_000,
     dpPercent: 20,
-    dpAmount: 50_000_000,
-    principalPure: 200_000_000,
+    dpAmount: 60_000_000,
+    principalPure: 240_000_000,
     tenor: 36,
-    interestRate: 0.0845,
-    totalInterest: 53_082_000,
-    insuranceLabel: 'Comprehensive (Data Demo)',
-    insuranceRate: 0.025,
-    insuranceAmount: 6_250_000,
+    interestRate: 0.0825,
+    totalInterest: 61_108_700,
+    insuranceLabel: '3 THN TLO',
+    insuranceRate: 0.02268,
+    insuranceAmount: 6_804_000,
     policyFee: 100_000,
-    totalAR: 206_350_000,
-    totalLoan: 259_432_000,
-    monthlyPayment: 7_210_000,
-    nilaiAP: 196_950_000,
+    totalAR: 246_904_000,
+    totalLoan: 308_012_700,
+    monthlyPayment: 8_560_000,
+    nilaiAP: 236_950_000,
     adminFee: 3_000_000,
     policyFeeTDP: 50_000,
     firstInstallment: 0,
-    totalFirstPay: 53_050_000,
+    totalFirstPay: 63_050_000,
     paymentType: 'ADDB',
   },
 ];

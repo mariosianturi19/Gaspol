@@ -67,18 +67,6 @@ export default function CreditSimulationPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {isDemoMode && (
-          <div className="mb-6 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
-            <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
-            <div>
-              <p className="font-semibold">Mode demo aktif</p>
-              <p className="mt-1 text-sm">
-                Perhitungan memakai data contoh dan perubahan tidak disimpan permanen.
-              </p>
-            </div>
-          </div>
-        )}
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
           {/* KOLOM KIRI: INPUT */}
@@ -126,12 +114,12 @@ export default function CreditSimulationPage() {
             setSaveSuccess(false);
             if (!isDemoMode) router.push('/pages/history');
         }} 
-        title={isDemoMode ? 'Simulasi Demo Berhasil' : 'Berhasil Disimpan'}
+        title="Berhasil Disimpan"
         type="success"
       >
         <p>
           {isDemoMode
-            ? 'Simulasi berhasil diproses. Data demo ini tidak disimpan permanen.'
+            ? 'Simulasi kredit berhasil diproses.'
             : 'Simulasi kredit berhasil disimpan ke dalam riwayat.'}
         </p>
       </Modal>
