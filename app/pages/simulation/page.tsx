@@ -24,53 +24,56 @@ export default function CreditSimulationPage() {
   } = useCreditSimulation();
 
   if (isLoading) return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 text-slate-600">
-      <Loader2 className="animate-spin w-10 h-10 mb-4 text-blue-600"/> 
-      <p className="font-medium">Memuat Database...</p>
+    <div className="flex min-h-[70vh] flex-col items-center justify-center text-slate-600">
+      <div className="mb-5 grid h-16 w-16 place-items-center rounded-2xl rounded-tr-sm border border-slate-200 bg-white shadow-sm">
+        <Loader2 className="h-7 w-7 animate-spin text-[#005FAF]"/>
+      </div>
+      <p className="text-xs font-extrabold uppercase tracking-[0.14em]">Memuat Database...</p>
     </div>
   );
   
   if (errorMsg) return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 text-red-500 p-6 text-center">
-      <AlertCircle className="w-12 h-12 mb-4"/> 
-      <p className="font-bold text-lg">Terjadi Kesalahan</p>
-      <p className="text-sm mt-2">{errorMsg}</p>
+    <div className="flex min-h-[70vh] flex-col items-center justify-center p-6 text-center text-red-600">
+      <div className="mb-5 grid h-16 w-16 place-items-center rounded-2xl rounded-tr-sm border border-red-200 bg-red-50">
+        <AlertCircle className="h-7 w-7"/>
+      </div>
+      <p className="text-lg font-extrabold text-slate-900">Terjadi Kesalahan</p>
+      <p className="mt-2 max-w-md text-sm text-slate-600">{errorMsg}</p>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] font-sans text-slate-800 pb-20 lg:pb-8">
+    <div className="min-h-screen pb-20 text-slate-800 lg:pb-10">
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900">Simulasi Kredit</h1>
-              <p className="text-slate-500 mt-2 text-sm md:text-base">GASPOL SYSTEM</p>
-            </div>
+      <div className="gaspol-shell flex flex-col gap-6 pb-7 pt-9 sm:flex-row sm:items-end sm:justify-between lg:pb-9 lg:pt-12">
+          <div>
+            <div className="page-kicker">Credit workspace</div>
+            <h1 className="page-title">Simulasi Kredit</h1>
+            <p className="page-subtitle">Susun skenario pembiayaan dan lihat struktur angsuran secara presisi.</p>
           </div>
 
           {/* Mode Switcher - Desktop & Mobile Optimized */}
-          <div className="flex bg-slate-100 p-1 rounded-xl">
+          <div className="precision-segmented flex w-full sm:w-auto">
              <button 
                 onClick={() => setForm(f => ({...f, mode: 'NORMAL'}))} 
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all duration-200 ${form.mode === 'NORMAL' ? 'bg-white text-blue-600 shadow-sm ring-1 ring-black/5' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`flex-1 rounded-lg rounded-tr-sm px-5 py-2.5 text-xs font-extrabold transition-colors sm:flex-none ${form.mode === 'NORMAL' ? 'bg-[#081B2E] text-white shadow-sm' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800'}`}
              >
                 Normal
              </button>
              <button 
                 onClick={() => setForm(f => ({...f, mode: 'BUDGET'}))} 
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all duration-200 flex items-center gap-1.5 ${form.mode === 'BUDGET' ? 'bg-white text-purple-600 shadow-sm ring-1 ring-black/5' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg rounded-tr-sm px-5 py-2.5 text-xs font-extrabold transition-colors sm:flex-none ${form.mode === 'BUDGET' ? 'bg-[#005FAF] text-white shadow-sm' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800'}`}
              >
                 <Search className="w-3 h-3"/> Budget
              </button>
           </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      <div className="gaspol-shell">
+        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-8">
           
           {/* KOLOM KIRI: INPUT */}
-          <div className="lg:col-span-4 space-y-6">
+          <div className="space-y-5 lg:col-span-5">
             <SimulationInputs 
               form={form} 
               setForm={setForm}
@@ -84,8 +87,8 @@ export default function CreditSimulationPage() {
           </div>
 
           {/* KOLOM KANAN: HASIL */}
-          <div className="lg:col-span-8">
-            <div className="sticky top-24">
+          <div className="lg:col-span-7">
+            <div className="sticky top-[7rem]">
               <SimulationResult 
                 result={result}
                 form={form}

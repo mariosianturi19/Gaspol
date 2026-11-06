@@ -25,6 +25,8 @@ export default function DeleteConfirmationModal({
 
   useEffect(() => {
     if (isOpen) {
+      // Existing entrance-state behavior; kept unchanged by the visual refresh.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShow(true);
       // Small delay to allow render before animating in
       requestAnimationFrame(() => {
@@ -45,7 +47,7 @@ export default function DeleteConfirmationModal({
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6">
       {/* Backdrop with Blur */}
       <div 
-        className={`absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 ease-out ${
+        className={`precision-backdrop absolute inset-0 transition-opacity duration-300 ease-out ${
           animate ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={!isDeleting ? onClose : undefined}
@@ -53,7 +55,7 @@ export default function DeleteConfirmationModal({
 
       {/* Modal Content */}
       <div 
-        className={`relative w-full max-w-md bg-white rounded-2xl shadow-2xl transform transition-all duration-300 cubic-bezier(0.34, 1.56, 0.64, 1) ${
+        className={`precision-modal relative w-full max-w-md transition-all duration-300 ${
           animate ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-8'
         }`}
       >

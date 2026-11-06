@@ -2,7 +2,7 @@
 "use client";
 
 import React from 'react';
-import { FileText, Calculator, Save, Loader2, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { FileText, Calculator, Save, Loader2, AlertTriangle } from 'lucide-react';
 import { CalculationResult, SimulationForm } from '@/app/types/simulation';
 
 interface Props {
@@ -17,39 +17,57 @@ const toPct = (num: number) => (num * 100).toFixed(3) + '%';
 
 export default function SimulationResult({ result, form, handleSave, isSaving }: Props) {
   return (
-    <div className={`bg-white rounded-2xl shadow-xl border overflow-hidden flex flex-col transition-all duration-300 ${form.mode === 'BUDGET' ? 'border-purple-100 shadow-purple-100' : 'border-slate-100 shadow-slate-200/50'}`}>
+    <div className="precision-result flex flex-col">
       
       {/* Header Result */}
-      <div className={`px-6 py-5 border-b flex justify-between items-start ${form.mode === 'BUDGET' ? 'bg-purple-50/30 border-purple-100' : 'bg-slate-50/50 border-slate-100'}`}>
+      <div className="precision-result-header px-5 py-6 sm:px-7 sm:py-7">
+        <div className="relative z-10 flex items-start justify-between gap-4">
           <div>
-              <h3 className={`text-lg font-bold flex items-center gap-2 ${form.mode === 'BUDGET' ? 'text-purple-700' : 'text-slate-800'}`}>
-                <FileText className="w-5 h-5"/> {form.mode === 'BUDGET' ? 'Hasil Simulasi Budget' : 'Hasil Simulasi Kredit'}
+              <div className="mb-3 flex items-center gap-2 text-[9px] font-extrabold uppercase tracking-[0.2em] text-cyan-200/75">
+                <span className="h-px w-6 bg-cyan-300/80" /> Credit calculation
+              </div>
+              <h3 className="flex items-center gap-2 text-xl font-extrabold tracking-[-0.025em] text-white">
+                <FileText className="h-5 w-5 text-cyan-300"/> {form.mode === 'BUDGET' ? 'Hasil Simulasi Budget' : 'Hasil Simulasi Kredit'}
               </h3>
               {form.mode === 'BUDGET' && result ? (
-                  <p className="text-xs text-purple-600 mt-1.5 bg-purple-100 px-2 py-1 rounded-md inline-block font-medium">
+                  <p className="mt-2 inline-block rounded-md border border-cyan-300/20 bg-cyan-300/10 px-2 py-1 text-xs font-medium text-cyan-100">
                       Rekomendasi DP: <b>{toIDR(result.dpAmount)} ({result.dpPercentCalc.toFixed(2)}%)</b>
                   </p>
               ) : (
-                <p className="text-xs text-slate-400 mt-1">Rincian perhitungan kredit kendaraan</p>
+                <p className="mt-1.5 text-xs text-slate-300">Rincian perhitungan kredit kendaraan</p>
               )}
           </div>
           {result && (
               <div className="flex flex-col items-end gap-2">
-                  <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide flex items-center gap-1 ${result.isSpecialScenario ? 'bg-yellow-100 text-yellow-700' : 'bg-slate-100 text-slate-600'}`}>
+                  <div className={`flex items-center gap-1 rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wide ${result.isSpecialScenario ? 'border-amber-300/30 bg-amber-300/15 text-amber-100' : 'border-white/15 bg-white/10 text-slate-100'}`}>
                       {result.isSpecialScenario && <AlertTriangle className="w-3 h-3"/>}
                       STAR {result.starLevel}
                   </div>
               </div>
           )}
+        </div>
+
+        {result && (
+          <div className="relative z-10 mt-7 grid grid-cols-2 gap-px overflow-hidden rounded-xl rounded-tr-sm border border-white/10 bg-white/10">
+            <div className="bg-[#071A2E]/60 p-4 sm:p-5">
+              <div className="text-[9px] font-extrabold uppercase tracking-[0.15em] text-slate-400">Angsuran / bulan</div>
+              <div className="financial-value mt-1 text-2xl font-bold text-white sm:text-3xl">{toIDR(result.monthlyInstallment)}</div>
+            </div>
+            <div className="bg-[#071A2E]/60 p-4 sm:p-5">
+              <div className="text-[9px] font-extrabold uppercase tracking-[0.15em] text-slate-400">Total bayar awal</div>
+              <div className="financial-value mt-1 text-2xl font-bold text-cyan-200 sm:text-3xl">{toIDR(result.totalDownPayment)}</div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Content Result */}
       {!result ? (
-        <div className="p-12 flex flex-col items-center justify-center text-slate-300 min-h-[400px]">
-            <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mb-6">
-              <Calculator className="w-10 h-10 text-slate-300"/>
+        <div className="flex min-h-[380px] flex-col items-center justify-center p-10 text-slate-300">
+            <div className="mb-6 grid h-20 w-20 place-items-center rounded-2xl rounded-tr-sm border border-slate-200 bg-slate-50">
+              <Calculator className="h-8 w-8 text-slate-300"/>
             </div>
-            <p className="text-slate-400 font-medium text-center max-w-xs">
+            <p className="max-w-xs text-center text-sm font-medium leading-relaxed text-slate-500">
               {form.mode === 'BUDGET' ? 'Masukkan target budget Anda dan tekan tombol hitung' : 'Masukkan Harga OTR dan parameter lainnya untuk melihat hasil'}
             </p>
         </div>
@@ -57,8 +75,8 @@ export default function SimulationResult({ result, form, handleSave, isSaving }:
         <div className="flex flex-col">
           
           {/* Detail Table */}
-          <div className="p-6">
-            <div className="border rounded-none overflow-hidden">
+          <div className="p-4 sm:p-6">
+            <div className="overflow-hidden border border-slate-200">
               <table className="w-full text-sm">
                 <tbody className="divide-y divide-slate-200">
                   <tr>
@@ -89,7 +107,7 @@ export default function SimulationResult({ result, form, handleSave, isSaving }:
                   </tr>
 
                   {/* Total AR Row - Blue Highlight */}
-                  <tr className="bg-blue-50/50 border-t-2 border-blue-100">
+                  <tr className="border-t-2 border-cyan-100 bg-cyan-50/50">
                     <td className="py-3 px-4 text-slate-700">Total AR (Awal)</td>
                     <td className="py-3 px-4 text-right text-slate-800">{toIDR(result.totalAR)}</td>
                   </tr>
@@ -112,9 +130,9 @@ export default function SimulationResult({ result, form, handleSave, isSaving }:
                   </tr>
 
                   {/* Angsuran Highlight */}
-                  <tr className="bg-orange-50 border-y-2 border-orange-100">
-                    <td className="py-3 px-3 lg:py-4 lg:px-4 text-slate-800 font-bold text-sm lg:text-lg">Angsuran per Bulan</td>
-                    <td className="py-3 px-3 lg:py-4 lg:px-4 text-right text-orange-600 font-bold text-lg lg:text-2xl">{toIDR(result.monthlyInstallment)}</td>
+                  <tr className="border-y-2 border-amber-100 bg-amber-50/70">
+                    <td className="px-3 py-3 text-sm font-bold text-slate-800 lg:px-4 lg:py-4 lg:text-lg">Angsuran per Bulan</td>
+                    <td className="financial-value px-3 py-3 text-right text-lg font-bold text-[#A65D18] lg:px-4 lg:py-4 lg:text-2xl">{toIDR(result.monthlyInstallment)}</td>
                   </tr>
 
                 </tbody>
@@ -122,8 +140,8 @@ export default function SimulationResult({ result, form, handleSave, isSaving }:
             </div>
 
             {/* TDP Section - Separated */}
-            <div className="mt-8 border rounded-none overflow-hidden">
-                <div className="bg-slate-800 text-white py-2 px-4 text-xs font-bold uppercase tracking-wider">
+            <div className="mt-7 overflow-hidden border border-slate-200">
+                <div className="bg-[#081B2E] px-4 py-2.5 text-[10px] font-extrabold uppercase tracking-[0.14em] text-slate-100">
                     RINCIAN PEMBAYARAN PERTAMA (TDP)
                 </div>
                 <table className="w-full text-sm">
@@ -146,9 +164,9 @@ export default function SimulationResult({ result, form, handleSave, isSaving }:
                                 <td className="py-3 px-4 text-right font-medium text-slate-700">{toIDR(result.firstInstallment)}</td>
                             </tr>
                         )}
-                        <tr className="bg-green-100">
-                            <td className="py-4 px-4 text-green-800 font-bold">TOTAL BAYAR (TDP)</td>
-                            <td className="py-4 px-4 text-right text-green-900 font-bold text-xl">{toIDR(result.totalDownPayment)}</td>
+                        <tr className="bg-emerald-50">
+                            <td className="px-4 py-4 font-bold text-emerald-800">TOTAL BAYAR (TDP)</td>
+                            <td className="financial-value px-4 py-4 text-right text-xl font-bold text-emerald-800">{toIDR(result.totalDownPayment)}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -157,11 +175,11 @@ export default function SimulationResult({ result, form, handleSave, isSaving }:
           </div>
 
           {/* Action Footer */}
-          <div className="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+          <div className="flex justify-end border-t border-slate-200 bg-[#F5F6F4] p-4">
             <button 
               onClick={handleSave} 
               disabled={isSaving}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl text-sm font-bold hover:bg-slate-800 transition-all shadow-lg shadow-slate-900/20 disabled:opacity-70 disabled:cursor-not-allowed active:scale-[0.98]"
+              className="flex w-full items-center justify-center gap-2 rounded-xl rounded-tr-sm bg-[#081B2E] px-6 py-3 text-sm font-extrabold text-white shadow-[0_14px_32px_-22px_rgba(8,27,46,0.9)] transition-colors hover:bg-[#0A3156] active:translate-y-px disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
             >
               {isSaving ? <Loader2 className="animate-spin w-4 h-4"/> : <Save className="w-4 h-4"/>}
               {isSaving ? 'Menyimpan...' : 'Simpan Simulasi'}

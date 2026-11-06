@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { createPortal } from 'react-dom';
-import { User, Eye, Loader2, Trash2, Calendar, Car, ChevronDown, Check, X } from 'lucide-react';
+import { User, Eye, Loader2, Trash2, Calendar, Car, ChevronDown, Check } from 'lucide-react';
 import { HistoryItem } from '@/app/types/history';
 import { UserSession } from '@/app/hooks/useAuth';
 
@@ -67,10 +67,10 @@ export default function HistoryTable({
   return (
     <>
       {/* Desktop View (Table) */}
-      <div className="hidden md:block bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="data-table-shell hidden md:block">
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
-            <thead className="bg-slate-50 text-slate-600 font-semibold uppercase text-xs tracking-wider border-b border-slate-200">
+            <thead className="border-b border-white/10 text-[10px] font-extrabold uppercase tracking-[0.13em]">
               <tr>
                 <th className="px-6 py-4 text-center w-24">Aksi</th>
                 <th className="px-6 py-4">Tanggal</th>
@@ -83,13 +83,13 @@ export default function HistoryTable({
             </thead>
             <tbody className="divide-y divide-slate-100">
               {data.map((item) => (
-                <tr key={item.id} className="hover:bg-slate-50/80 transition-colors group">
+                <tr key={item.id} className="group transition-colors">
                   <td className="px-6 py-4 text-center">
                     <div className="flex justify-center gap-2">
                       {isProsesor ? (
                         <button 
                             onClick={() => setSelectedItem(item)}
-                            className="p-2 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition shadow-sm border border-slate-200 hover:border-blue-200"
+                            className="rounded-lg rounded-tr-sm border border-slate-200 bg-white p-2 text-[#005FAF] transition-colors hover:border-cyan-300 hover:bg-cyan-50"
                             title="Lihat Rincian"
                         >
                             <Eye className="w-4 h-4"/>
@@ -101,7 +101,7 @@ export default function HistoryTable({
                       {isProsesor && handleDelete && (
                         <button 
                             onClick={() => handleDelete(item.id)}
-                            className="p-2 bg-white text-red-600 rounded-lg hover:bg-red-50 transition shadow-sm border border-slate-200 hover:border-red-200"
+                            className="rounded-lg rounded-tr-sm border border-slate-200 bg-white p-2 text-red-600 transition-colors hover:border-red-200 hover:bg-red-50"
                             title="Hapus Data"
                         >
                             <Trash2 className="w-4 h-4"/>
@@ -123,8 +123,8 @@ export default function HistoryTable({
 
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2">
-                      <div className="p-1.5 bg-blue-50 rounded-md">
-                        <Car className="w-4 h-4 text-blue-600" />
+                      <div className="rounded-lg rounded-tr-sm bg-cyan-50 p-1.5">
+                        <Car className="h-4 w-4 text-[#005FAF]" />
                       </div>
                       <span className="text-slate-700 font-medium">{item.unitName}</span>
                     </div>
@@ -157,7 +157,7 @@ export default function HistoryTable({
                             }
                           }}
                           disabled={updatingId === item.id}
-                          className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold border transition-all ${getStatusColor(item.status)} hover:shadow-md active:scale-95`}
+                          className={`status-badge flex items-center gap-2 border px-4 py-1.5 transition-colors ${getStatusColor(item.status)} hover:brightness-95 active:translate-y-px`}
                         >
                           {updatingId === item.id ? (
                             <Loader2 className="w-3 h-3 animate-spin" />
@@ -209,7 +209,7 @@ export default function HistoryTable({
                         )}
                       </div>
                     ) : (
-                      <span className={`text-xs font-bold px-3 py-1.5 rounded-full border ${getStatusColor(item.status)}`}>
+                      <span className={`status-badge border px-3 py-1.5 ${getStatusColor(item.status)}`}>
                         {item.status}
                       </span>
                     )}
@@ -226,12 +226,12 @@ export default function HistoryTable({
         {data.map((item) => (
           <div 
             key={item.id} 
-            className="bg-white rounded-2xl p-5 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] border border-slate-100 active:scale-[0.99] transition-transform"
+            className="precision-card p-5 active:translate-y-px"
             onClick={() => isProsesor && setSelectedItem(item)}
           >
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-sm">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl rounded-tr-sm bg-cyan-50 text-sm font-bold text-[#005FAF]">
                   {item.borrowerName.charAt(0)}
                 </div>
                 <div>
@@ -249,7 +249,7 @@ export default function HistoryTable({
                       value={item.status}
                       onChange={(e) => handleStatusChange(item.id, e.target.value)}
                       disabled={updatingId === item.id}
-                      className={`text-[10px] font-bold px-2 py-1 rounded-full border appearance-none outline-none ${getStatusColor(item.status)}`}
+                      className={`status-badge appearance-none border px-2 py-1 outline-none ${getStatusColor(item.status)}`}
                     >
                       <option value="TODO">TODO</option>
                       <option value="DONE">DONE</option>
@@ -257,14 +257,14 @@ export default function HistoryTable({
                     </select>
                 </div>
               ) : (
-                <span className={`text-[10px] font-bold px-2 py-1 rounded-full border ${getStatusColor(item.status)}`}>
+                <span className={`status-badge border px-2 py-1 ${getStatusColor(item.status)}`}>
                   {item.status}
                 </span>
               )}
             </div>
 
             <div className="space-y-3 mb-4">
-              <div className="flex justify-between items-center p-3 bg-slate-50 rounded-xl">
+              <div className="flex items-center justify-between rounded-xl rounded-tr-sm border border-slate-100 bg-slate-50 p-3">
                 <div className="flex items-center gap-2 text-slate-600 text-sm">
                   <Car className="w-4 h-4" />
                   <span>{item.unitName}</span>
@@ -272,13 +272,13 @@ export default function HistoryTable({
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 border border-slate-100 rounded-xl">
+                <div className="rounded-xl rounded-tr-sm border border-slate-200 p-3">
                   <div className="text-xs text-slate-400 mb-1">Harga OTR</div>
                   <div className="font-semibold text-slate-700 text-sm">{toIDR(item.vehiclePrice)}</div>
                 </div>
-                <div className="p-3 border border-blue-100 bg-blue-50/50 rounded-xl">
-                  <div className="text-xs text-blue-400 mb-1">Angsuran</div>
-                  <div className="font-bold text-blue-700 text-sm">{toIDR(item.monthlyPayment)}</div>
+                <div className="rounded-xl rounded-tr-sm border border-cyan-200 bg-cyan-50/60 p-3">
+                  <div className="mb-1 text-xs text-[#3C91A7]">Angsuran</div>
+                  <div className="financial-value text-base font-bold text-[#0A4E72]">{toIDR(item.monthlyPayment)}</div>
                 </div>
               </div>
             </div>
@@ -288,7 +288,7 @@ export default function HistoryTable({
                 <>
                   <button 
                     onClick={(e) => { e.stopPropagation(); setSelectedItem(item); }}
-                    className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-slate-900 text-white rounded-xl text-sm font-medium active:bg-slate-800"
+                    className="flex flex-1 items-center justify-center gap-2 rounded-xl rounded-tr-sm bg-[#081B2E] py-2.5 text-sm font-bold text-white active:bg-[#0A3156]"
                   >
                     <Eye className="w-4 h-4" />
                     Rincian

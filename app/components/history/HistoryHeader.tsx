@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { RefreshCw, Search } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 
 interface Props {
   onRefresh: () => void;
@@ -9,12 +9,11 @@ interface Props {
 
 export default function HistoryHeader({ onRefresh }: Props) {
   return (
-    <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div className="mb-7 flex flex-col justify-between gap-5 lg:mb-9 md:flex-row md:items-end">
       <div>
-        <h1 className="text-3xl font-bold text-slate-900 tracking-tight flex items-center gap-3">
-          Riwayat Simulasi
-        </h1>
-        <p className="text-slate-500 mt-2 text-sm md:text-base">
+        <div className="page-kicker">Sales pipeline</div>
+        <h1 className="page-title">Riwayat Simulasi</h1>
+        <p className="page-subtitle">
           Kelola status prospek dan pantau performa penjualan Anda.
         </p>
       </div>
@@ -22,7 +21,7 @@ export default function HistoryHeader({ onRefresh }: Props) {
       <div className="flex items-center gap-2">
         <button 
           onClick={onRefresh} 
-          className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full hover:bg-slate-50 text-slate-600 text-sm font-medium shadow-sm transition-all active:scale-95"
+          className="flex min-h-11 items-center gap-2 rounded-xl rounded-tr-sm border border-slate-300 bg-[#FFFEFB] px-4 py-2 text-xs font-extrabold text-slate-700 shadow-[0_10px_24px_-20px_rgba(8,27,46,0.8)] transition-colors hover:border-cyan-300 hover:bg-cyan-50/60 active:translate-y-px"
         >
             <RefreshCw className="w-4 h-4"/>
             <span>Refresh</span>

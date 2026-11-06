@@ -23,13 +23,18 @@ export default function SimulationInputs({
   handleFileChange, removeAttachment
 }: Props) {
   return (
-    <div className="space-y-6">
+    <div className="precision-form space-y-5">
       {/* --- DATA NASABAH CARD --- */}
-      <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-1 h-full bg-slate-400"></div>
-          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-5 flex items-center gap-2">
-            <User className="w-4 h-4 text-slate-500"/> Data Nasabah
-          </h3>
+      <div className="precision-card p-5 sm:p-6">
+          <div className="precision-section-heading">
+            <div className="precision-section-index">01</div>
+            <div>
+              <h3 className="precision-section-title flex items-center gap-2">
+                <User className="h-4 w-4 text-[#005FAF]"/> Data Nasabah
+              </h3>
+              <span className="precision-section-caption">Identitas pemohon dan unit kendaraan</span>
+            </div>
+          </div>
           
           <div className="space-y-4">
             <div className="space-y-3">
@@ -83,7 +88,7 @@ export default function SimulationInputs({
                       onChange={handleFileChange}
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                   />
-                  <div className="flex items-center justify-center gap-2 w-full py-3 bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl text-slate-400 group-hover:bg-blue-50 group-hover:border-blue-200 group-hover:text-blue-500 transition-all">
+                  <div className="precision-upload flex w-full items-center justify-center gap-2 py-3 text-slate-500 transition-colors">
                     <UploadCloud className="w-4 h-4"/>
                     <span className="text-xs font-medium">Klik untuk upload dokumen</span>
                   </div>
@@ -114,11 +119,16 @@ export default function SimulationInputs({
       </div>
 
       {/* --- PARAMETER UNIT CARD --- */}
-      <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
-        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-5 flex items-center gap-2">
-          <Car className="w-4 h-4 text-blue-500"/> Parameter Unit
-        </h3>
+      <div className="precision-card p-5 sm:p-6">
+        <div className="precision-section-heading">
+          <div className="precision-section-index">02</div>
+          <div>
+            <h3 className="precision-section-title flex items-center gap-2">
+              <Car className="h-4 w-4 text-[#005FAF]"/> Parameter Unit
+            </h3>
+            <span className="precision-section-caption">Struktur pembiayaan dan proteksi</span>
+          </div>
+        </div>
         
         <div className="space-y-5">
           {/* Harga OTR */}
@@ -182,12 +192,12 @@ export default function SimulationInputs({
 
           {/* Mode Budget Inputs */}
           {form.mode === 'BUDGET' && (
-              <div className="bg-purple-50/50 p-4 rounded-xl border border-purple-100 space-y-4">
+              <div className="space-y-4 rounded-xl rounded-tr-sm border border-cyan-200/70 bg-cyan-50/55 p-4">
                   <div>
-                      <label className="block text-[10px] font-bold text-purple-700 uppercase tracking-wide mb-2">Target Pencarian</label>
-                      <div className="flex bg-white p-1 rounded-lg border border-purple-100 shadow-sm">
-                          <button onClick={() => setForm(f => ({...f, targetType: 'TDP'}))} className={`flex-1 py-2 text-[10px] font-bold rounded-md transition-all ${form.targetType === 'TDP' ? 'bg-purple-600 text-white shadow-md' : 'text-slate-500 hover:bg-slate-50'}`}>Max TDP</button>
-                          <button onClick={() => setForm(f => ({...f, targetType: 'INSTALLMENT'}))} className={`flex-1 py-2 text-[10px] font-bold rounded-md transition-all ${form.targetType === 'INSTALLMENT' ? 'bg-purple-600 text-white shadow-md' : 'text-slate-500 hover:bg-slate-50'}`}>Max Angsuran</button>
+                      <label className="mb-2 block text-[10px] font-bold uppercase tracking-wide text-[#005FAF]">Target Pencarian</label>
+                      <div className="flex rounded-lg rounded-tr-sm border border-cyan-200 bg-white p-1 shadow-sm">
+                          <button onClick={() => setForm(f => ({...f, targetType: 'TDP'}))} className={`flex-1 rounded-md py-2 text-[10px] font-bold transition-colors ${form.targetType === 'TDP' ? 'bg-[#005FAF] text-white shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`}>Max TDP</button>
+                          <button onClick={() => setForm(f => ({...f, targetType: 'INSTALLMENT'}))} className={`flex-1 rounded-md py-2 text-[10px] font-bold transition-colors ${form.targetType === 'INSTALLMENT' ? 'bg-[#005FAF] text-white shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`}>Max Angsuran</button>
                       </div>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
@@ -203,18 +213,18 @@ export default function SimulationInputs({
                                     setForm(prev => ({ ...prev, targetValue: val === '' ? 0 : parseInt(val) }));
                                 }
                             }}
-                            className="w-full px-3 py-2 border border-purple-200 rounded-lg text-sm font-bold text-purple-800 focus:ring-2 focus:ring-purple-500 outline-none" 
+                            className="w-full border px-3 py-2 text-sm font-bold outline-none"
                             placeholder="0" 
                           />
                         </div>
                         <div>
                           <label className="block text-[10px] font-bold text-slate-500 mb-1">TENOR</label>
-                          <select name="tenor" value={form.tenor} onChange={handleChange} className="w-full px-3 py-2 border border-purple-200 rounded-lg text-xs font-semibold bg-white focus:ring-2 focus:ring-purple-500 outline-none">
+                          <select name="tenor" value={form.tenor} onChange={handleChange} className="w-full border px-3 py-2 text-xs font-semibold outline-none">
                               {availableTenors.map(t => <option key={t} value={t}>{t/12} Thn</option>)}
                           </select>
                         </div>
                   </div>
-                  <button onClick={solveBudget} className="w-full py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-bold shadow-lg shadow-purple-600/20 transition-all active:scale-[0.98]">
+                  <button onClick={solveBudget} className="w-full rounded-xl rounded-tr-sm bg-[#081B2E] py-3 text-xs font-extrabold tracking-wide text-white shadow-[0_14px_28px_-20px_rgba(8,27,46,0.9)] transition-colors hover:bg-[#0A3156] active:translate-y-px">
                       HITUNG REKOMENDASI DP
                   </button>
               </div>
@@ -226,13 +236,13 @@ export default function SimulationInputs({
               <div className="grid grid-cols-2 gap-3 mb-3">
                 <button 
                   onClick={() => setForm(f => ({...f, category: 'PASSENGER'}))} 
-                  className={`py-2.5 px-4 text-xs font-bold border rounded-xl transition-all ${form.category === 'PASSENGER' ? 'bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-600/20' : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50'}`}
+                  className={`rounded-xl rounded-tr-sm border px-4 py-2.5 text-xs font-bold transition-colors ${form.category === 'PASSENGER' ? 'border-[#005FAF] bg-[#005FAF] text-white shadow-sm' : 'border-slate-200 bg-white text-slate-500 hover:bg-slate-50'}`}
                 >
                   PASSENGER
                 </button>
                 <button 
                   onClick={() => setForm(f => ({...f, category: 'COMMERCIAL'}))} 
-                  className={`py-2.5 px-4 text-xs font-bold border rounded-xl transition-all ${form.category === 'COMMERCIAL' ? 'bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-600/20' : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50'}`}
+                  className={`rounded-xl rounded-tr-sm border px-4 py-2.5 text-xs font-bold transition-colors ${form.category === 'COMMERCIAL' ? 'border-[#005FAF] bg-[#005FAF] text-white shadow-sm' : 'border-slate-200 bg-white text-slate-500 hover:bg-slate-50'}`}
                 >
                   KOMERSIL
                 </button>
@@ -256,14 +266,14 @@ export default function SimulationInputs({
           </div>
 
           {/* Asuransi Section */}
-          <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100 space-y-4">
+          <div className="space-y-4 rounded-xl rounded-tr-sm border border-[#BFDDE5] bg-[#EDF6F7] p-4">
               <div>
-                  <label className="block text-[10px] font-bold text-blue-800 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+                  <label className="mb-2 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-[#0A4E72]">
                     <Shield className="w-3.5 h-3.5"/> Konfigurasi Asuransi
                   </label>
                   {availableInsuranceOptions.length > 0 ? (
                       <div className="relative">
-                        <select name="selectedInsuranceLabel" value={form.selectedInsuranceLabel} onChange={handleChange} className="w-full px-3 py-2 border border-blue-200 rounded-lg text-xs font-bold uppercase bg-white text-slate-700 focus:ring-2 focus:ring-blue-500 outline-none appearance-none">
+                        <select name="selectedInsuranceLabel" value={form.selectedInsuranceLabel} onChange={handleChange} className="w-full appearance-none border px-3 py-2 text-xs font-bold uppercase outline-none">
                             {availableInsuranceOptions.map((opt, idx) => (
                                 <option key={idx} value={opt.label}>{opt.label} ({toPct(opt.rate)})</option>
                             ))}
@@ -276,7 +286,7 @@ export default function SimulationInputs({
                   <div>
                       <label className="block text-[10px] font-bold text-slate-500 mb-1">TIPE BAYAR</label>
                       <div className="relative">
-                        <select name="paymentType" value={form.paymentType} onChange={handleChange} className="w-full px-3 py-2 border border-blue-200 rounded-lg font-semibold bg-white text-xs text-slate-700 focus:ring-2 focus:ring-blue-500 outline-none appearance-none">
+                        <select name="paymentType" value={form.paymentType} onChange={handleChange} className="w-full appearance-none border px-3 py-2 text-xs font-semibold outline-none">
                             <option value="ADDB">ADDB</option>
                             <option value="ADDM">ADDM</option>
                         </select>

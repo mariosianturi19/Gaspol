@@ -12,10 +12,13 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-white border-t border-slate-200 py-6 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-center items-center">
-        <div className="text-slate-500 text-sm text-center">
-          &copy; {new Date().getFullYear()} Gaspol System. All rights reserved.
+    <footer className="mt-auto border-t border-slate-300/60 bg-[#F3F1EB]/90 py-6">
+      <div className="gaspol-shell flex items-center justify-between gap-4">
+        <div className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-slate-500">
+          GASPOL / Credit Performance Console
+        </div>
+        <div className="text-right text-[11px] text-slate-500">
+          &copy; {new Date().getFullYear()} Setir Kanan
         </div>
       </div>
     </footer>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo } from 'react';
-import { FileText, X, Paperclip, Download, ChevronDown } from 'lucide-react';
+import { FileText, X, Paperclip, Download } from 'lucide-react';
 import { HistoryItem } from '@/app/types/history';
 import { AttachmentItem } from '@/app/types/simulation';
 
@@ -40,21 +40,22 @@ export default function HistoryDetailModal({ item, onClose }: Props) {
   if (!item) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="precision-backdrop fixed inset-0 z-[60] flex items-end justify-center animate-in fade-in duration-200 md:items-center md:p-6">
         {/* Modal Container */}
-        <div className="bg-white w-full md:w-full md:max-w-2xl max-h-[90vh] flex flex-col rounded-t-3xl md:rounded-2xl shadow-2xl animate-in slide-in-from-bottom-10 md:zoom-in-95 duration-300">
+        <div className="precision-modal flex max-h-[92vh] w-full flex-col rounded-b-none md:max-w-2xl md:rounded-b-[1.35rem] animate-in slide-in-from-bottom-10 duration-300 md:zoom-in-95">
             
             {/* Header */}
-            <div className="flex-none px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-white rounded-t-3xl md:rounded-t-2xl sticky top-0 z-10">
+            <div className="sticky top-0 z-10 flex flex-none items-center justify-between border-b border-white/10 bg-[#081B2E] px-6 py-5 text-white rounded-t-[1.35rem] rounded-tr-[0.4rem]">
                 <div>
-                    <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                        <FileText className="w-5 h-5 text-blue-600"/> Rincian Simulasi
+                    <div className="mb-1 text-[8px] font-extrabold uppercase tracking-[0.18em] text-cyan-200/70">Credit record</div>
+                    <h3 className="flex items-center gap-2 text-lg font-extrabold text-white">
+                        <FileText className="h-5 w-5 text-cyan-300"/> Rincian Simulasi
                     </h3>
-                    <p className="text-xs text-slate-500 mt-0.5">{item.unitName} - {item.borrowerName}</p>
+                    <p className="mt-1 text-xs text-slate-300">{item.unitName} — {item.borrowerName}</p>
                 </div>
                 <button 
                     onClick={onClose}
-                    className="p-2 bg-slate-100 hover:bg-slate-200 rounded-full transition text-slate-500"
+                    className="rounded-xl rounded-tr-sm border border-white/10 bg-white/10 p-2 text-slate-200 transition-colors hover:bg-white/15 hover:text-white"
                 >
                     <X className="w-5 h-5"/>
                 </button>
@@ -72,13 +73,13 @@ export default function HistoryDetailModal({ item, onClose }: Props) {
 
                 {/* Main Info Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <div className="rounded-xl rounded-tr-sm border border-slate-200 bg-slate-50 p-4">
                         <div className="text-xs text-slate-500 mb-1">Harga Kendaraan</div>
-                        <div className="font-bold text-slate-900 text-lg">{toIDR(item.vehiclePrice)}</div>
+                        <div className="financial-value text-xl font-bold text-slate-900">{toIDR(item.vehiclePrice)}</div>
                     </div>
-                    <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+                    <div className="rounded-xl rounded-tr-sm border border-emerald-100 bg-emerald-50 p-4">
                         <div className="text-xs text-emerald-600 mb-1">Total Bayar (TDP)</div>
-                        <div className="font-bold text-emerald-800 text-lg">{toIDR(item.totalFirstPay)}</div>
+                        <div className="financial-value text-xl font-bold text-emerald-800">{toIDR(item.totalFirstPay)}</div>
                     </div>
                 </div>
 
@@ -113,7 +114,7 @@ export default function HistoryDetailModal({ item, onClose }: Props) {
                             </tr>
                             <tr className="bg-yellow-50">
                                 <td className="py-4 px-4 font-bold text-slate-800">Angsuran per Bulan</td>
-                                <td className="py-4 px-4 text-right font-bold text-orange-600 text-xl">{toIDR(item.monthlyPayment)}</td>
+                                <td className="financial-value px-4 py-4 text-right text-xl font-bold text-[#A65D18]">{toIDR(item.monthlyPayment)}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -183,7 +184,7 @@ export default function HistoryDetailModal({ item, onClose }: Props) {
             <div className="p-4 border-t border-slate-100 md:hidden">
                 <button 
                     onClick={onClose}
-                    className="w-full py-3 bg-slate-900 text-white rounded-xl font-bold active:scale-[0.98] transition"
+                    className="w-full rounded-xl rounded-tr-sm bg-[#081B2E] py-3 font-bold text-white active:translate-y-px"
                 >
                     Tutup
                 </button>

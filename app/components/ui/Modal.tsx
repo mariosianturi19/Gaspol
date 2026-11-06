@@ -28,6 +28,8 @@ export default function Modal({
 
   useEffect(() => {
     if (isOpen) {
+      // Existing entrance-state behavior; kept unchanged by the visual refresh.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShow(true);
       setTimeout(() => setAnimate(true), 10);
     } else {
@@ -48,13 +50,13 @@ export default function Modal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className={`absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 ${animate ? 'opacity-100' : 'opacity-0'}`}
+        className={`precision-backdrop absolute inset-0 transition-opacity duration-300 ${animate ? 'opacity-100' : 'opacity-0'}`}
         onClick={onClose}
       />
 
       {/* Modal Content */}
       <div 
-        className={`relative bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 transform transition-all duration-300 ${animate ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'}`}
+        className={`precision-modal relative w-full max-w-sm p-6 transition-all duration-300 ${animate ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'}`}
       >
         <button 
           onClick={onClose}
@@ -85,7 +87,7 @@ export default function Modal({
             )}
             <button 
               onClick={onClose}
-              className="flex-1 py-2.5 px-4 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors"
+              className="flex-1 rounded-xl rounded-tr-sm bg-slate-100 px-4 py-2.5 font-bold text-slate-600 transition-colors hover:bg-slate-200"
             >
               Tutup
             </button>

@@ -20,32 +20,33 @@ export default function Navbar() {
   return (
     <>
       {/* Desktop Navbar (Hidden on Mobile) */}
-      <nav className="hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#00428D] border-b border-blue-800/50">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="flex items-center justify-between h-20">
+      <nav className="fixed inset-x-0 top-0 z-50 hidden border-b border-white/10 bg-[#071A2E]/[0.97] shadow-[0_14px_40px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl md:block">
+        <div className="mx-auto max-w-[90rem] px-8">
+          <div className="flex h-[5.5rem] items-center justify-between">
             {/* Logo Section */}
-            <div className="flex items-center gap-4">
-              <div className="relative flex items-center justify-center bg-white rounded-xl p-1.5 shadow-lg">
+            <div className="flex items-center gap-3.5">
+              <div className="relative flex items-center justify-center rounded-xl rounded-tr-sm border border-white/70 bg-[#FFFEFB] p-1 shadow-[0_12px_30px_-18px_rgba(0,0,0,0.9)]">
                 <img 
                   src="/GASPOL.png?v=3" 
                   alt="Gaspol Logo" 
-                  className="relative w-14 h-14 object-contain z-10" 
+                  className="relative z-10 h-14 w-14 object-contain"
                 />
               </div>
-              <span className="font-bold text-2xl tracking-tight text-white relative z-10">
-                GASPOL System
-              </span>
+              <div className="relative z-10 leading-none">
+                <span className="block text-xl font-extrabold tracking-[-0.04em] text-white">GASPOL</span>
+                <span className="mt-1 block text-[9px] font-bold uppercase tracking-[0.2em] text-cyan-200/70">Credit Performance Console</span>
+              </div>
             </div>
             
             {/* Navigation Links */}
-            <div className="flex items-center gap-8">
-              <div className="flex items-center bg-blue-950/30 p-1.5 rounded-full border border-blue-900/20">
+            <div className="flex items-center gap-7">
+              <div className="flex items-center gap-1 rounded-xl rounded-tr-sm border border-white/10 bg-white/[0.055] p-1">
                 <Link 
                   href="/pages/simulation" 
-                  className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                  className={`relative flex items-center gap-2 rounded-lg px-5 py-2.5 text-xs font-bold tracking-wide transition-colors ${
                     isActive('/pages/simulation') 
-                      ? 'bg-blue-600 text-white shadow-md' 
-                      : 'text-blue-200/70 hover:text-white hover:bg-blue-900/30'
+                      ? 'bg-white text-[#081B2E] shadow-[0_8px_22px_-14px_rgba(0,0,0,0.8)]'
+                      : 'text-slate-300 hover:bg-white/[0.06] hover:text-white'
                   }`}
                 >
                   <Calculator className="w-4 h-4" />
@@ -53,10 +54,10 @@ export default function Navbar() {
                 </Link>
                 <Link 
                   href="/pages/history" 
-                  className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                  className={`relative flex items-center gap-2 rounded-lg px-5 py-2.5 text-xs font-bold tracking-wide transition-colors ${
                     isActive('/pages/history') 
-                      ? 'bg-blue-600 text-white shadow-md' 
-                      : 'text-blue-200/70 hover:text-white hover:bg-blue-900/30'
+                      ? 'bg-white text-[#081B2E] shadow-[0_8px_22px_-14px_rgba(0,0,0,0.8)]'
+                      : 'text-slate-300 hover:bg-white/[0.06] hover:text-white'
                   }`}
                 >
                   <History className="w-4 h-4" />
@@ -66,17 +67,17 @@ export default function Navbar() {
 
               {/* User Profile */}
               {user && (
-                <div className="flex items-center gap-5 pl-5 border-l border-blue-900/30">
+                <div className="flex items-center gap-4 border-l border-white/10 pl-6">
                   <div className="text-right">
-                    <div className="text-xs font-bold text-blue-400 uppercase tracking-wider">{user.role}</div>
-                    <div className="text-sm text-blue-100 font-medium">{user.name}</div>
+                    <div className="text-[9px] font-extrabold uppercase tracking-[0.16em] text-cyan-300/80">{user.role}</div>
+                    <div className="mt-1 text-xs font-semibold text-slate-100">{user.name}</div>
                   </div>
                   <button 
                     onClick={logout}
-                    className="group p-2.5 bg-blue-950/30 rounded-full border border-blue-900/20 hover:border-red-500/50 hover:bg-red-950/30 transition-all duration-300"
+                    className="group rounded-xl rounded-tr-sm border border-white/10 bg-white/[0.055] p-2.5 transition-colors hover:border-red-400/40 hover:bg-red-500/10"
                     title="Keluar"
                   >
-                    <LogOut className="w-5 h-5 text-blue-300 group-hover:text-red-400 transition-colors" />
+                    <LogOut className="h-4 w-4 text-slate-300 transition-colors group-hover:text-red-300" />
                   </button>
                 </div>
               )}
@@ -86,36 +87,39 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Top Bar (Logo Only) */}
-      <nav className="md:hidden fixed top-0 left-0 right-0 z-50 bg-[#00428D] border-b border-blue-800/50 px-4 h-16 flex items-center justify-between">
+      <nav className="fixed inset-x-0 top-0 z-50 flex h-[4.5rem] items-center justify-between border-b border-white/10 bg-[#071A2E]/[0.98] px-4 shadow-[0_12px_35px_-28px_rgba(0,0,0,0.9)] backdrop-blur-xl md:hidden">
         <div className="flex items-center gap-3">
-          <div className="relative flex items-center justify-center bg-white rounded-lg p-1 shadow-md">
+          <div className="relative flex items-center justify-center rounded-lg rounded-tr-sm border border-white/60 bg-[#FFFEFB] p-0.5 shadow-md">
              <img 
               src="/GASPOL.png?v=3" 
               alt="Gaspol Logo" 
-              className="w-10 h-10 object-contain relative z-10" 
+              className="relative z-10 h-10 w-10 object-contain"
             />
           </div>
-          <span className="font-bold text-lg tracking-tight text-white relative z-10">GASPOL!</span>
+          <div className="relative z-10 leading-none">
+            <span className="block text-base font-extrabold tracking-[-0.035em] text-white">GASPOL</span>
+            <span className="mt-1 block text-[7px] font-bold uppercase tracking-[0.17em] text-cyan-200/70">Credit Console</span>
+          </div>
         </div>
         {user && (
            <div className="flex items-center gap-2">
-             <div className="w-8 h-8 rounded-full bg-blue-900/30 flex items-center justify-center border border-blue-800">
-                <span className="text-xs font-bold text-blue-400">{user.name.charAt(0)}</span>
+             <div className="flex h-9 w-9 items-center justify-center rounded-xl rounded-tr-sm border border-white/10 bg-white/[0.07]">
+                <span className="text-xs font-bold text-cyan-200">{user.name.charAt(0)}</span>
              </div>
            </div>
         )}
       </nav>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-        <div className="flex justify-around items-center h-16 px-2">
+      <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200/80 bg-[#FFFEFB]/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-14px_36px_-26px_rgba(8,27,46,0.5)] backdrop-blur-xl md:hidden">
+        <div className="flex h-[4.25rem] items-center justify-around px-2">
           <Link 
             href="/pages/simulation" 
             className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${
-              isActive('/pages/simulation') ? 'text-blue-600' : 'text-slate-500 hover:text-slate-900'
+              isActive('/pages/simulation') ? 'text-[#005FAF]' : 'text-slate-500 hover:text-slate-900'
             }`}
           >
-            <div className={`p-1.5 rounded-xl transition-all ${isActive('/pages/simulation') ? 'bg-blue-50' : ''}`}>
+            <div className={`rounded-lg rounded-tr-sm p-1.5 transition-colors ${isActive('/pages/simulation') ? 'bg-cyan-50' : ''}`}>
               <Calculator className="w-5 h-5" />
             </div>
             <span className="text-[10px] font-medium">Simulasi</span>
@@ -124,10 +128,10 @@ export default function Navbar() {
           <Link 
             href="/pages/history" 
             className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${
-              isActive('/pages/history') ? 'text-blue-600' : 'text-slate-500 hover:text-slate-900'
+              isActive('/pages/history') ? 'text-[#005FAF]' : 'text-slate-500 hover:text-slate-900'
             }`}
           >
-            <div className={`p-1.5 rounded-xl transition-all ${isActive('/pages/history') ? 'bg-blue-50' : ''}`}>
+            <div className={`rounded-lg rounded-tr-sm p-1.5 transition-colors ${isActive('/pages/history') ? 'bg-cyan-50' : ''}`}>
               <History className="w-5 h-5" />
             </div>
             <span className="text-[10px] font-medium">History</span>
@@ -146,7 +150,7 @@ export default function Navbar() {
       </nav>
       
       {/* Spacer to prevent content from being hidden behind fixed navbars */}
-      <div className="h-16 md:h-20"></div>
+      <div className="h-[4.5rem] md:h-[5.5rem]"></div>
     </>
   );
 }
